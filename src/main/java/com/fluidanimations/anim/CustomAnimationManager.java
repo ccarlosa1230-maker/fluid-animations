@@ -22,9 +22,9 @@ import java.util.Optional;
  * bindings.json:
  * {
  *   "minecraft:cow": { "idle": "animation.cow.idle", "walk": "animation.cow.walk" },
- *   "minecraft:player": { "attack": "animation.player.punch" }
+ *   "minecraft:player": { "use": "animation.player.eat" }
  * }
- * Estados reconhecidos: idle, walk, sneak, attack, hurt.
+ * Estados reconhecidos: idle, walk, sneak, use (usando item), hurt.
  */
 public class CustomAnimationManager implements ResourceManagerReloadListener {
 	private static final String DIR = "fluidanimations";

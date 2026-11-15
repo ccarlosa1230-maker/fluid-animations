@@ -6,7 +6,7 @@
 		"idle": "animation.example.pig.idle"
 	},
 	"minecraft:player": {
-		"attack": "animation.example.player.attack"
+		"use": "animation.example.player.use"
 	},
 	"minecraft:zombie": {
 		"hurt": "animation.example.zombie.hurt"

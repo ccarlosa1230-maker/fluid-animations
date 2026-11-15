@@ -2,7 +2,6 @@ package com.fluidanimations.anim;
 
 import com.fluidanimations.config.AnimConfig;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Axis;
 import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.util.Mth;
@@ -12,6 +11,7 @@ import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.player.Player;
+import org.joml.Matrix4f;
 
 import java.util.IdentityHashMap;
 import java.util.Map;
@@ -119,11 +119,10 @@ public final class ProceduralAnimator {
 		CustomAnimation clip = null;
 		float time = 0f;
 
-		float attack = e.getAttackAnim(partialTick);
 		if (hurtF > 0f && (clip = CustomAnimationManager.find(typeId, "hurt")) != null) {
 			time = (1f - hurtF) * clip.length;
-		} else if (attack > 0f && (clip = CustomAnimationManager.find(typeId, "attack")) != null) {
-			time = attack * clip.length;
+		} else if (e.isUsingItem() && (clip = CustomAnimationManager.find(typeId, "use")) != null) {
+			time = p.timeSeconds;
 		} else if (sneaking && (clip = CustomAnimationManager.find(typeId, "sneak")) != null) {
 			time = p.timeSeconds;
 		} else if (p.walkAmount > 0.1f && (clip = CustomAnimationManager.find(typeId, "walk")) != null) {
@@ -155,8 +154,9 @@ public final class ProceduralAnimator {
 
 		float c = p.height * 0.5f; // rotaciona em volta do meio do corpo
 		poseStack.translate(0f, c, 0f);
-		if (p.pitch != 0f) poseStack.mulPose(Axis.XP.rotationDegrees(p.pitch));
-		if (p.roll != 0f) poseStack.mulPose(Axis.ZP.rotationDegrees(p.roll));
+		if (p.pitch != 0f || p.roll != 0f) {
+			poseStack.mulPose(new Matrix4f().rotateX(p.pitch * Mth.DEG_TO_RAD).rotateZ(p.roll * Mth.DEG_TO_RAD));
+		}
 		poseStack.translate(0f, -c, 0f);
 
 		poseStack.scale(p.sx, p.sy, p.sz); // escala a partir dos pes: pousar achata sem afundar no chao

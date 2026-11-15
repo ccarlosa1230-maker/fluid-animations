@@ -18,7 +18,7 @@ public class FluidAnimationsClient implements ClientModInitializer {
 		AnimConfig.load();
 
 		// Recarrega as animacoes customizadas junto com os resource packs (F3+T tambem funciona)
-		ResourceLoader.get(PackType.CLIENT_RESOURCES).registerReloader(
+		ResourceLoader.get(PackType.CLIENT_RESOURCES).registerReloadListener(
 				Identifier.fromNamespaceAndPath(MOD_ID, "custom_animations"),
 				new CustomAnimationManager());
 
