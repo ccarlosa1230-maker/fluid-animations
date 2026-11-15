@@ -1,0 +1,14 @@
+{
+	"minecraft:cow": {
+		"idle": "animation.example.cow.idle"
+	},
+	"minecraft:pig": {
+		"idle": "animation.example.pig.idle"
+	},
+	"minecraft:player": {
+		"attack": "animation.example.player.attack"
+	},
+	"minecraft:zombie": {
+		"hurt": "animation.example.zombie.hurt"
+	}
+}
